@@ -1,0 +1,67 @@
+
+#add-cmmd {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#null-container {
+    display: flex;
+    flex-direction: row; justify-content: space-between;
+  }
+  
+.full-name {
+    border: 1px solid #ced4da;
+    margin-bottom: 15px; font-size: 1rem; height: 38px; border-radius: 4px;
+  }
+  
+ 
+._name {
+    color: rgb(236, 179, 179);
+    font-size: 20px; margin-left: 8px; margin-top: 5px;
+  }
+
+.full-name {
+    border: 1px solid #ced4da;
+    margin-bottom: 15px; font-size: 1rem; height: 38px; border-radius: 4px;
+  }
+
+._email {
+      color: rgb(236, 179, 179);
+    font-weight: 10px; margin-left: 8px; margin-top: 5px;
+  }
+
+.prompt {
+    padding: 10px;
+  }
+
+#author-dtpsted {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+.dec-none {
+  text-decoration: none;
+}
+  
+  /*
+  #bgcolor {
+    background-color: #121212;
+  }
+
+  .post-contents {
+    background-color:#264b5d;^
+    color: #ced4da;
+  
+  }
+
+  #post-bgclr {
+    background-color: #264b5d;
+    color: #ced4da;
+  }
+  */

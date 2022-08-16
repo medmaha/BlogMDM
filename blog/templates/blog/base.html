@@ -1,0 +1,150 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/35116388ad.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/mystyle.css' %}">
+
+    {% if title %}
+    <title>MDM - {{ title }}</title>
+    {% else %}
+    <title>MDM</title>
+    {% endif %}
+</head>
+
+<body id='bgcolor'>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">MDM-BLOCK</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i
+                                class="fa-solid fa-house-user"></i><span>Home</span></a>
+
+                        {% if user.is_authenticated %}
+                        <!-- <a class="nav-item nav-link lg-scr" href="{% url 'create-post' %}"><i
+                                class="fa-regular fa-plus"></i>Add Post</a> -->
+
+                        <!-- <a class="nav-item nav-link lg-scr" href="#"><i 
+                                class="fa-solid fa-user"></i><span>Profile</span></a> -->
+
+                        <a class="nav-item nav-link" href="{% url 'blog-about' %}"><i
+                                class="fa-solid fa-circle-info"></i><span>About</span></a>
+
+                        <a class="nav-item nav-link" href="{% url 'logout' %}"><span>Logout</span><i
+                            class="fa-solid fa-right-from-bracket"></i></a>
+    
+                        {% else %}
+                        <a class="nav-item nav-link" href="{% url 'login' %}"><i
+                                class="fa-solid fa-right-to-bracket"></i><span>Login</span></a>
+
+                        <a class="nav-item nav-link" href="{% url 'register' %}"><i
+                                class="fa-regular fa-pen-to-square"></i><span>Register</span></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="under-navbar container mb-2">
+        <div class="d-flex justify-content-between ">
+            <div class="add-post">
+                <a class="nav-item nav-link" href="#">
+                    <h6 class="btn-outline-info p-2 rounded-pill"> <i class="fa-regular fa-square-plus"></i></i> Create Post</h6>
+                </a>
+            </div>
+
+            <form action="" class="search">
+                <input type="search" placeholder="Search MDM" name="q">
+                <button type="submit" class="btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                {{request.session.profile.user.username}}
+            </form>
+
+            <div class="user-profile">
+                <a class="nav-item nav-link" href="#"><span>Profile</span>
+                    <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+                    <img src="{{profile.image.url}}" alt="n-f" width="30px">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flex-center">
+                    {% if messages%}
+                    {% for message in messages %}
+                    <div class="alert alert{{ message.tags }}"> {{message}}</div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class=" post-contents ">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script src="{% static 'blog/js/jquery.js' %}"></script>
+    <script src="{% static 'blog/js/myscript.js' %}"></script>
+
+</body>
+
+</html>
+
+<!-- 
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+                        <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+                    </div>
+           
+                    <div class="navbar-nav">
+                        {% if user.is_authenticated %}
+                        <div style="color: darkgray; margin: 7px;">
+                            <li><span> User:</span>
+                                <small>{{user.username}}</small>
+                            </li>
+                        </div>
+                        <a class="nav-item nav-link" href="{% url 'create-post' %}">Create Post</a>
+                        <a class="nav-item nav-link" href="#">Profile</a>
+                        <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                        {% else %}
+                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+ -->

@@ -1,0 +1,62 @@
+
+{% extends 'blog/base.html'%}
+{% load static %}
+<!-- Detail View -->
+
+    {% block content %}
+
+
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{post.author.profile.image.url}}">
+            <div class="media-body">
+                <div id="add-cmmd" class="article-metadata">
+                    <div>
+                        <a class="mr-2" href="#">by__ {{ post.author }}</a>
+                        <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                    </div>
+                    <div>
+                        {% if request.user == post.author %}
+                            <a class="btn btn-secondary btn-sm mb-1" href="{% url 'post-update' post.id %}">Edit</a>
+                            <a class="btn btn-danger btn-sm mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <h2 class="article-title">{{ post.title }}</h2>
+                <p class="article-content">{{ post.content }}</p>
+            </div>
+        </article>
+        <article class="border-bottom">
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn btn-info">comment</button>
+            </form>
+        </article>
+
+        <article id="loop" class="border-bottom">
+            COMMENTS ({{all_comments.count}})
+            {% for comments in all_comments %}
+            <div class="border-bottom mt-3">
+                <strong>@{{ comments.author }}</strong>
+                <p>{{ comments.comment }}</p>
+            </div>
+            
+            <button id='btn' type="submit" class="btn">Reply {{comments.replies.count}}</button>
+            <div id="reply-form">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <textarea name="replying" id="uniq" cols="30" rows="2"></textarea>
+                    <input type="hidden" name="reply-form" value={{replying}}>
+                    <button type="submit" class="btn">Submit</button>
+                </form>
+            </div>
+
+            {% endfor %}
+        </article>
+
+                
+        
+    {% endblock%}
+ 
+<!-- Offline Home View -->
